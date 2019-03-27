@@ -9,14 +9,12 @@
 (Prereq)Install the following:
 -----------------
 <br/>
-```
-python 2.7
-pip
-virtualenv
-Google Speech-to-Text client library: pip install --upgrade google-cloud-speech
-Google Translate client library: pip install --upgrade google-cloud-translate
-Google Text-to-Speech client library: pip install --upgrade google-cloud-texttospeech (not yet implemented)
-```
+python 2.7<br/>
+pip<br/>
+virtualenv<br/>
+Google Speech-to-Text client library: `pip install --upgrade google-cloud-speech`<br/>
+Google Translate client library: `pip install --upgrade google-cloud-translate`<br/>
+Google Text-to-Speech client library: `pip install --upgrade google-cloud-texttospeech` (not yet implemented)<br/>
 <br/>
 <br/>
 
