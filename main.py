@@ -26,13 +26,13 @@ def Record():
 	stream = audio.open(format=FORMAT, channels=CHANNELS,
 	                rate=RATE, input=True,
 	                frames_per_buffer=CHUNK)
-	print "Recording..."
+	print("Recording...")
 	frames = []
 	 
 	for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
 	    data = stream.read(CHUNK)
 	    frames.append(data)
-	print "Finished Recording"
+	print("Finished Recording")
 	 
 	 
 	# stop Recording
@@ -68,9 +68,10 @@ def Speech_to_text(input_language_code):
 	# Detects speech in the audio file
 	response = client.recognize(config, audio)
 
+	result = None
 	for result in response.results:
-		print('Transcript: {}'.format(result.alternatives[0].transcript))
-		print("Print out result", result)
+		print(u'Transcript: {}'.format(result.alternatives[0].transcript))
+		print(u"Print out result", result)
 	
 	# return str(result.alternatives[0].transcript)
 	return result
@@ -124,153 +125,155 @@ def Text_to_speech(translated_text,translated_language_code):
 	    print('Audio content written to file "output.mp3"')
 
 def menu():
-	language_list =[[1,"Afrikaans(South Africa) | Afrikaans(Suid-Afrika)","af-ZA"],	
-					[2,"Amharic(Ethiopia)አማርኛ | (ኢትዮጵያ)","am-ET"],	
-					[3,"Armenian(Armenia)Հայ | (Հայաստան)","hy-AM"],	
-					[4,"Azerbaijani(Azerbaijan) | Azərbaycan(Azərbaycan)","az-AZ"],
-					[5,"Arabic(Israel) | العربية (إسرائيل)","ar-IL"],
-					[6,"Arabic(Jordan) | العربية (الأردن)","ar-JO"],	
-					[7,"Arabic(United Arab Emirates) | العربية (الإمارات)","ar-AE"],	
-					[8,"Arabic(Bahrain) | العربية (البحرين)","ar-BH"],	
-					[9,"Arabic(Algeria) | العربية (الجزائر)","ar-DZ"],	
-					[10,"Arabic(Saudi Arabia) | العربية (السعودية)","ar-SA"],	
-					[11,"Arabic(Iraq) | العربية (العراق)","ar-IQ"],	
-					[12,"Arabic(Kuwait) | العربية (الكويت)","ar-KW"],
-					[13,"Arabic(Morocco) | العربية (المغرب)","ar-MA"],	
-					[14,"Arabic(Tunisia) | العربية (تونس)","ar-TN"],	
-					[15,"Arabic(Oman) | العربية (عُمان)","ar-OM"],	
-					[16,"Arabic(State of Palestine) | العربية (فلسطين)","ar-PS"],	
-					[17,"Arabic(Qatar) | العربية (قطر)","ar-QA"],	
-					[18,"Arabic(Lebanon) | العربية (لبنان)","ar-LB"],	
-					[19,"Arabic(Egypt) | العربية (مصر)","ar-EG"],	
-					[20,"Bengali(Bangladesh) | বাংলা (বাংলাদেশ)","bn-BD"],	
-					[21,"Bengali(India) | বাংলা (ভারত)","bn-IN"],	
-					[22,"Basque(Spain) | Euskara (Espainia)","eu-ES"],	
-					[23,"Bulgarian(Bulgaria) | Български (България)","bg-BG"],
-					[24,"Croatian(Croatia) | Hrvatski (Hrvatska)","hr-HR"],	
-					[25,"Catalan(Spain) | Català (Espanya)","ca-ES"],	
-					[26,"Czech(Czech Republic) | Čeština (Česká republika)","cs-CZ"],	
-					[27,"Chinese,Mandarin(Traditional, Taiwan) | 國語 (台灣)"	,"zh-TW"],	
-					[28,"Chinese,Cantonese(Traditional, Hong Kong) | 廣東話 (香港)","yue-Hant-HK"],	
-					[29,"Chinese,Mandarin(Simplified, Hong Kong) | 普通話 (香港)","zh-HK"],	
-					[30,"Chinese,Mandarin(Simplified, China) | 普通话 (中国大陆)","zh"],	
-					[31,"Danish(Denmark) | Dansk (Danmark)","da-DK"],	
-					[32,"Dutch(Netherlands) | Nederlands (Nederland)","nl-NL"],	
-					[33,"English(Australia) | English (Australia)","en-AU"],	
-					[34,"English(Canada) | English (Canada)","en-CA"],	
-					[35,"English(Ghana) | English (Ghana)","en-GH"],	
-					[36,"English(United Kingdom) | English (Great Britain)","en-GB"],	
-					[37,"English(India) | English (India)","en-IN"],	
-					[38,"English(Ireland) | English (Ireland)","en-IE"],	
-					[39,"English(Kenya) | English (Kenya)","en-KE"],	
-					[40,"English(New Zealand) | English (New Zealand)","en-NZ"],	
-					[41,"English(Nigeria) | English (Nigeria)","en-NG"],	
-					[42,"English(Philippines) | English (Philippines)","en-PH"],	
-					[43,"English(Singapore) | English (Singapore)","en-SG"],	
-					[44,"English(South Africa) | English (South Africa)","en-ZA"],	
-					[45,"English(Tanzania) | English (Tanzania)","en-TZ"],	
-					[46,"English(United States) | English (United States)","en-US"],	
-					[47,"Filipino(Philippines) | Filipino (Pilipinas)","fil-PH"],	
-					[48,"Finnish(Finland) | Suomi (Suomi)","fi-FI"],	
-					[49,"French(Canada) | Français (Canada)","fr-CA"],	
-					[50,"French(France) | Français (France)","fr-FR"],	
-					[51,"Greek(Greece) | Ελληνικά (Ελλάδα)","el-GR"],	
-					[52,"Galician(Spain) | Galego (España)","gl-ES"],	
-					[53,"Georgian(Georgia) | ქართული (საქართველო)","ka-GE"],	
-					[54,"Gujarati(India) | ગુજરાતી (ભારત)","gu-IN"],	
-					[55,"German(Germany) | Deutsch (Deutschland)","de-DE"],	
-					[56,"Hebrew(Israel) | עברית (ישראל)","he-IL"],	
-					[57,"Hindi(India) | हिन्दी (भारत)","hi-IN"],	
-					[58,"Hungarian(Hungary) | Magyar (Magyarország)","hu-HU"],	
-					[59,"Indonesian(Indonesia) | Bahasa Indonesia(Indonesia)","id-ID"],	
-					[60,"Icelandic(Iceland) | Íslenska (Ísland)","is-IS"],	
-					[61,"Italian(Italy) | Italiano (Italia)","it-IT"],	
-					[62,"Javanese(Indonesia) | Jawa (Indonesia)","jv-ID"],	
-					[63,"Japanese(Japan) | 日本語（日本）"	,"ja-JP"],
-					[64,"Korean(South Korea) | 한국어 (대한민국)","ko-KR"],	
-					[65,"Kannada(India) | ಕನ್ನಡ (ಭಾರತ)"	,"kn-IN"],	
-					[66,"Khmer(Cambodia) | ភាសាខ្មែរ (កម្ពុជា)","km-KH"],	
-					[67,"Lao(Laos) | ລາວ (ລາວ)","lo-LA"],
-					[68,"Latvian(Latvia) | Latviešu (latviešu)","lv-LV"],	
-					[69,"Lithuanian(Lithuania) | Lietuvių (Lietuva)","lt-LT"],	
-					[70,"Malay(Malaysia) | Bahasa Melayu (Malaysia)","ms-MY"],	
-					[71,"Malayalam(India) | മലയാളം (ഇന്ത്യ)","ml-IN"],	
-					[72,"Marathi(India) | मराठी (भारत)","mr-IN"],	
-					[73,"Nepali(Nepal) | नेपाली (नेपाल)","ne-NP"],	
-					[74,"Norwegian Bokmål(Norway) | Norsk bokmål (Norge)","nb-NO"],	
-					[75,"Persian(Iran) | فارسی (ایران)","fa-IR"],	
-					[76,"Polish(Poland) | Polski (Polska)","pl-PL"],	
-					[77,"Portuguese(Brazil) | Português (Brasil)","pt-BR"],	
-					[78,"Portuguese(Portugal) | Português (Portugal)","pt-PT"],	
-					[79,"Romanian(Romania) | Română (România)","ro-RO"],				
-					[80,"Russian(Russia) | Русский (Россия)","ru-RU"],
-					[81,"Spanish(Argentina) | Español (Argentina)","es-AR"],	
-					[82,"Spanish(Bolivia) | Español (Bolivia)","es-BO"],	
-					[83,"Spanish(Chile) | Español (Chile)","es-CL"],	
-					[84,"Spanish(Colombia | Español (Colombia)","es-CO"],	
-					[85,"Spanish(Costa Rica) | Español (Costa Rica)","es-CR"],	
-					[86,"Spanish(Ecuador) | Español (Ecuador)","es-EC"],
-					[87,"Spanish(El Salvador) | Español (El Salvador)","es-SV"],	
-					[88,"Spanish(Spain) | Español (España)","es-ES"],
-					[89,"Spanish(United States) | Español (Estados Unidos)","es-US"],	
-					[90,"Spanish(Guatemala) | Español (Guatemala)","es-GT"],	
-					[91,"Spanish(Honduras) | Español (Honduras)","es-HN"],	
-					[92,"Spanish(Mexico) | Español (México)","es-MX"],	
-					[93,"Spanish(Nicaragua) | Español (Nicaragua)","es-NI"],	
-					[94,"Spanish(Panama) | Español (Panamá)","es-PA"],	
-					[95,"Spanish(Paraguay) | Español (Paraguay)","es-PY"],	
-					[96,"Spanish(Peru) | Español (Perú)","es-PE"],	
-					[97,"Spanish(Puerto Rico) | Español (Puerto Rico)","es-PR"],	
-					[98,"Spanish(Dominican Republic) | Español (República Dominicana)","es-DO"],	
-					[99,"Spanish(Uruguay) | Español (Uruguay)","es-UY"],	
-					[100,"Spanish(Venezuela) | Español (Venezuela)","es-VE"],		
-					[101,"Serbian(Serbia) | Српски (Србија)","sr-RS"],
-					[102,"Sinhala(Sri Lanka) | සිංහල (ශ්රී ලංකාව)","si-LK"],	
-					[103,"Slovak(Slovakia) | Slovenčina (Slovensko)","sk-SK"],	
-					[104,"Slovenian(Slovenia) | Slovenščina (Slovenija)","sl-SI"],	
-					[105,"Sundanese(Indonesia) | Urang (Indonesia)","su-ID"],	
-					[106,"Swahili(Tanzania) | Swahili (Tanzania)","sw-TZ"],	
-					[107,"Swahili(Kenya) | Swahili (Kenya)","sw-KE"],	
-					[108,"Swedish(Sweden) | Svenska (Sverige)","sv-SE"],
-					[109,"Tamil(India) | தமிழ் (இந்தியா)","ta-IN"],	
-					[110,"Tamil(Singapore) | தமிழ் (சிங்கப்பூர்)","ta-SG"],	
-					[111,"Tamil(Sri Lanka) | தமிழ் (இலங்கை)","ta-LK"],	
-					[112,"Tamil(Malaysia) | தமிழ் (மலேசியா)","ta-MY"],	
-					[113,"Telugu(India) | తెలుగు (భారతదేశం)","te-IN"],	
-					[114,"Turkish(Turkey) | Türkçe (Türkiye)","tr-TR"],		
-					[115,"Thai(Thailand) | ไทย (ประเทศไทย)","th-TH"],	
-					[116,"Ukrainian(Ukraine) | Українська (Україна)","uk-UA"],	
-					[117,"Urdu(Pakistan) | اردو (پاکستان)","ur-PK"],	
-					[118,"Urdu(India) | اردو (بھارت)","ur-IN"],	
-					[119,"Vietnamese(Vietnam) | Tiếng Việt (Việt Nam)","vi-VN"],
-					[120,"Zulu(South Africa) | IsiZulu (Ningizimu Afrika)","zu-ZA"]]	
+	language_list =[[1,"Afrikaans(South Africa) | Afrikaans(Suid-Afrika)","af-ZA","af"],	
+					[2,"Amharic(Ethiopia)አማርኛ | (ኢትዮጵያ)","am-ET","am"],	
+					[3,"Armenian(Armenia)Հայ | (Հայաստան)","hy-AM","hy"],	
+					[4,"Azerbaijani(Azerbaijan) | Azərbaycan(Azərbaycan)","az-AZ","az"],
+					[5,"Arabic(Israel) | العربية (إسرائيل)","ar-IL","ar"],
+					[6,"Arabic(Jordan) | العربية (الأردن)","ar-JO","ar"],	
+					[7,"Arabic(United Arab Emirates) | العربية (الإمارات)","ar-AE","ar"],	
+					[8,"Arabic(Bahrain) | العربية (البحرين)","ar-BH","ar"],	
+					[9,"Arabic(Algeria) | العربية (الجزائر)","ar-DZ","ar"],	
+					[10,"Arabic(Saudi Arabia) | العربية (السعودية)","ar-SA","ar"],	
+					[11,"Arabic(Iraq) | العربية (العراق)","ar-IQ","ar"],	
+					[12,"Arabic(Kuwait) | العربية (الكويت)","ar-KW","ar"],
+					[13,"Arabic(Morocco) | العربية (المغرب)","ar-MA","ar"],	
+					[14,"Arabic(Tunisia) | العربية (تونس)","ar-TN","ar"],	
+					[15,"Arabic(Oman) | العربية (عُمان)","ar-OM","ar"],	
+					[16,"Arabic(State of Palestine) | العربية (فلسطين)","ar-PS","ar"],	
+					[17,"Arabic(Qatar) | العربية (قطر)","ar-QA","ar"],	
+					[18,"Arabic(Lebanon) | العربية (لبنان)","ar-LB","ar"],	
+					[19,"Arabic(Egypt) | العربية (مصر)","ar-EG","ar"],	
+					[20,"Bengali(Bangladesh) | বাংলা (বাংলাদেশ)","bn-BD","bn"],	
+					[21,"Bengali(India) | বাংলা (ভারত)","bn-IN","bn"],	
+					[22,"Basque(Spain) | Euskara (Espainia)","eu-ES","eu"],	
+					[23,"Bulgarian(Bulgaria) | Български (България)","bg-BG","bg"],
+					[24,"Croatian(Croatia) | Hrvatski (Hrvatska)","hr-HR","hr"],	
+					[25,"Catalan(Spain) | Català (Espanya)","ca-ES","ca"],	
+					[26,"Czech(Czech Republic) | Čeština (Česká republika)","cs-CZ","cs"],	
+					[27,"Chinese,Mandarin(Traditional, Taiwan) | 國語 (台灣)"	,"zh-TW","zh-TW"],	
+					[28,"Chinese,Cantonese(Traditional, Hong Kong) | 廣東話 (香港)","yue-Hant-HK",None],	
+					[29,"Chinese,Mandarin(Simplified, Hong Kong) | 普通話 (香港)","zh-HK","zh-CN"], #Used zh-CN	
+					[30,"Chinese,Mandarin(Simplified, China) | 普通话 (中国大陆)","zh","zh-CN"],	
+					[31,"Danish(Denmark) | Dansk (Danmark)","da-DK","da"],	
+					[32,"Dutch(Netherlands) | Nederlands (Nederland)","nl-NL","nl"],	
+					[33,"English(Australia) | English (Australia)","en-AU","en"],	
+					[34,"English(Canada) | English (Canada)","en-CA","en"],	
+					[35,"English(Ghana) | English (Ghana)","en-GH","en"],	
+					[36,"English(United Kingdom) | English (Great Britain)","en-GB","en"],	
+					[37,"English(India) | English (India)","en-IN","en"],	
+					[38,"English(Ireland) | English (Ireland)","en-IE","en"],	
+					[39,"English(Kenya) | English (Kenya)","en-KE","en"],	
+					[40,"English(New Zealand) | English (New Zealand)","en-NZ","en"],	
+					[41,"English(Nigeria) | English (Nigeria)","en-NG","en"],	
+					[42,"English(Philippines) | English (Philippines)","en-PH","en"],	
+					[43,"English(Singapore) | English (Singapore)","en-SG","en"],	
+					[44,"English(South Africa) | English (South Africa)","en-ZA","en"],	
+					[45,"English(Tanzania) | English (Tanzania)","en-TZ","en"],	
+					[46,"English(United States) | English (United States)","en-US","en"],	
+					[47,"Filipino(Philippines) | Filipino (Pilipinas)","fil-PH","tl"],	
+					[48,"Finnish(Finland) | Suomi (Suomi)","fi-FI","fi"],	
+					[49,"French(Canada) | Français (Canada)","fr-CA","fr"],	
+					[50,"French(France) | Français (France)","fr-FR","fr"],	
+					[51,"Greek(Greece) | Ελληνικά (Ελλάδα)","el-GR","el"],	
+					[52,"Galician(Spain) | Galego (España)","gl-ES","gl"],	
+					[53,"Georgian(Georgia) | ქართული (საქართველო)","ka-GE","ka"],	
+					[54,"Gujarati(India) | ગુજરાતી (ભારત)","gu-IN","gu"],	
+					[55,"German(Germany) | Deutsch (Deutschland)","de-DE","de"],	
+					[56,"Hebrew(Israel) | עברית (ישראל)","he-IL","he**"],	
+					[57,"Hindi(India) | हिन्दी (भारत)","hi-IN","hi"],	
+					[58,"Hungarian(Hungary) | Magyar (Magyarország)","hu-HU","hu"],	
+					[59,"Indonesian(Indonesia) | Bahasa Indonesia(Indonesia)","id-ID","id"],	
+					[60,"Icelandic(Iceland) | Íslenska (Ísland)","is-IS","is"],	
+					[61,"Italian(Italy) | Italiano (Italia)","it-IT","it"],	
+					[62,"Javanese(Indonesia) | Jawa (Indonesia)","jv-ID","jw"],	
+					[63,"Japanese(Japan) | 日本語（日本）"	,"ja-JP","ja"],
+					[64,"Korean(South Korea) | 한국어 (대한민국)","ko-KR","ko"],	
+					[65,"Kannada(India) | ಕನ್ನಡ (ಭಾರತ)"	,"kn-IN","kn"],	
+					[66,"Khmer(Cambodia) | ភាសាខ្មែរ (កម្ពុជា)","km-KH","km"],	
+					[67,"Lao(Laos) | ລາວ (ລາວ)","lo-LA","lo"],
+					[68,"Latvian(Latvia) | Latviešu (latviešu)","lv-LV","lv"],	
+					[69,"Lithuanian(Lithuania) | Lietuvių (Lietuva)","lt-LT","lt"],	
+					[70,"Malay(Malaysia) | Bahasa Melayu (Malaysia)","ms-MY","ms"],	
+					[71,"Malayalam(India) | മലയാളം (ഇന്ത്യ)","ml-IN","ml"],	
+					[72,"Marathi(India) | मराठी (भारत)","mr-IN","mr"],	
+					[73,"Nepali(Nepal) | नेपाली (नेपाल)","ne-NP","ne"],	
+					[74,"Norwegian Bokmål(Norway) | Norsk bokmål (Norge)","nb-NO","no"],	
+					[75,"Persian(Iran) | فارسی (ایران)","fa-IR","fa"],	
+					[76,"Polish(Poland) | Polski (Polska)","pl-PL","pl"],	
+					[77,"Portuguese(Brazil) | Português (Brasil)","pt-BR","pt"],	
+					[78,"Portuguese(Portugal) | Português (Portugal)","pt-PT","pt"],	
+					[79,"Romanian(Romania) | Română (România)","ro-RO","ro"],				
+					[80,"Russian(Russia) | Русский (Россия)","ru-RU","ru"],
+					[81,"Spanish(Argentina) | Español (Argentina)","es-AR","es"],	
+					[82,"Spanish(Bolivia) | Español (Bolivia)","es-BO","es"],	
+					[83,"Spanish(Chile) | Español (Chile)","es-CL","es"],	
+					[84,"Spanish(Colombia | Español (Colombia)","es-CO","es"],	
+					[85,"Spanish(Costa Rica) | Español (Costa Rica)","es-CR","es"],	
+					[86,"Spanish(Ecuador) | Español (Ecuador)","es-EC","es"],
+					[87,"Spanish(El Salvador) | Español (El Salvador)","es-SV","es"],	
+					[88,"Spanish(Spain) | Español (España)","es-ES","es"],
+					[89,"Spanish(United States) | Español (Estados Unidos)","es-US","es"],	
+					[90,"Spanish(Guatemala) | Español (Guatemala)","es-GT","es"],	
+					[91,"Spanish(Honduras) | Español (Honduras)","es-HN","es"],	
+					[92,"Spanish(Mexico) | Español (México)","es-MX","es"],	
+					[93,"Spanish(Nicaragua) | Español (Nicaragua)","es-NI","es"],	
+					[94,"Spanish(Panama) | Español (Panamá)","es-PA","es"],	
+					[95,"Spanish(Paraguay) | Español (Paraguay)","es-PY","es"],	
+					[96,"Spanish(Peru) | Español (Perú)","es-PE","es"],	
+					[97,"Spanish(Puerto Rico) | Español (Puerto Rico)","es-PR","es"],	
+					[98,"Spanish(Dominican Republic) | Español (República Dominicana)","es-DO","es"],	
+					[99,"Spanish(Uruguay) | Español (Uruguay)","es-UY","es"],	
+					[100,"Spanish(Venezuela) | Español (Venezuela)","es-VE","es"],		
+					[101,"Serbian(Serbia) | Српски (Србија)","sr-RS","sr"],
+					[102,"Sinhala(Sri Lanka) | සිංහල (ශ්රී ලංකාව)","si-LK","si"],	
+					[103,"Slovak(Slovakia) | Slovenčina (Slovensko)","sk-SK","sk"],	
+					[104,"Slovenian(Slovenia) | Slovenščina (Slovenija)","sl-SI","sl"],	
+					[105,"Sundanese(Indonesia) | Urang (Indonesia)","su-ID","su"],	
+					[106,"Swahili(Tanzania) | Swahili (Tanzania)","sw-TZ","sw"],	
+					[107,"Swahili(Kenya) | Swahili (Kenya)","sw-KE","sw"],	
+					[108,"Swedish(Sweden) | Svenska (Sverige)","sv-SE","sv"],
+					[109,"Tamil(India) | தமிழ் (இந்தியா)","ta-IN","ta"],	
+					[110,"Tamil(Singapore) | தமிழ் (சிங்கப்பூர்)","ta-SG","ta"],	
+					[111,"Tamil(Sri Lanka) | தமிழ் (இலங்கை)","ta-LK","ta"],	
+					[112,"Tamil(Malaysia) | தமிழ் (மலேசியா)","ta-MY","ta"],	
+					[113,"Telugu(India) | తెలుగు (భారతదేశం)","te-IN","te"],	
+					[114,"Turkish(Turkey) | Türkçe (Türkiye)","tr-TR","tr"],		
+					[115,"Thai(Thailand) | ไทย (ประเทศไทย)","th-TH","th"],	
+					[116,"Ukrainian(Ukraine) | Українська (Україна)","uk-UA","uk"],	
+					[117,"Urdu(Pakistan) | اردو (پاکستان)","ur-PK","ur"],	
+					[118,"Urdu(India) | اردو (بھارت)","ur-IN","ur"],	
+					[119,"Vietnamese(Vietnam) | Tiếng Việt (Việt Nam)","vi-VN","vi"],
+					[120,"Zulu(South Africa) | IsiZulu (Ningizimu Afrika)","zu-ZA","zu"]]	
 	
 	isSelected = False
 	while(isSelected is False):
 		for language in language_list:
-			print language[0],language[1]
+			print(language[0],language[1])
 		in_language_num = int(raw_input("Input Language: "))
 		out_language_num = int(raw_input("Output Language: "))
 		if((in_language_num > 0 and in_language_num <= 120) and (out_language_num > 0 and out_language_num <= 120)):
 			isSelected = True
 		else:
-			print "Invalid Option, Please Try Again"
+			print("Invalid Option, Please Try Again")
 			continue
 	for language in language_list:
 		if(language[0]==in_language_num):
 			in_language = language[2]
-			print "Input Language: ",language[1]
+			print("Input Language: ",language[1])
+		if(language[0]==out_language_num):
+			trans_targ_code = language[3]
 		if(language[0]==out_language_num):
 			out_language = language[2]
-			print "Output Language: ",language[1]
+			print("Output Language: ",language[1])
 
-	return in_language,out_language
+	return in_language,trans_targ_code,out_language
 
 def main():
-	in_language, out_language = menu()
+	in_language,trans_targ_code,out_language = menu()
 	Record()
 	speech2txt_result = Speech_to_text(in_language)
-	translated_text = Translation(speech2txt_result,'es')
+	translated_text = Translation(speech2txt_result,trans_targ_code)
 	Text_to_speech(translated_text,out_language)
 
 main()
