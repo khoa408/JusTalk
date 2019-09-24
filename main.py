@@ -52,8 +52,8 @@ def Speech_to_text(input_language_code):
 	client = speech.SpeechClient()
 
 	# The name of the audio file to transcribe
-	file_name = os.path.join('/Users','khoatran','Desktop',
-				'Repositories','JusTalk','file.wav')
+	file_name = os.path.join('/home','khoa','Desktop',
+				'JusTalk','file.wav')
 
 	# Loads the audio into memory
 	with io.open(file_name, 'rb') as audio_file:
@@ -248,8 +248,12 @@ def menu():
 	
 	isSelected = False
 	while(isSelected is False):
+		print("አማርኛ ")
 		for language in language_list:
-			print(language[0],language[1])
+			print str(language[0]) + " " + language[1]
+			# print(temp)
+			# print language[0] 
+			# print language[1]
 		in_language_num = int(raw_input("Input Language: "))
 		out_language_num = int(raw_input("Output Language: "))
 		if((in_language_num > 0 and in_language_num <= 120) and (out_language_num > 0 and out_language_num <= 120)):
