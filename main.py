@@ -52,7 +52,7 @@ def Speech_to_text(input_language_code):
 	client = speech.SpeechClient()
 
 	# The name of the audio file to transcribe
-	file_name = os.path.join('/home','khoa','Desktop',
+	file_name = os.path.join('/home','pi','Desktop',
 				'JusTalk','file.wav')
 
 	# Loads the audio into memory
@@ -93,7 +93,7 @@ def Translation(text,language):
 	print(u'Translation: {}'.format(translation['translatedText']))
 
 	#return translation
-	return translation
+	return translation['translatedText']
 
 def Text_to_speech(translated_text,translated_language_code):
 	from google.cloud import texttospeech
@@ -278,6 +278,7 @@ def main():
 	Record()
 	speech2txt_result = Speech_to_text(in_language)
 	translated_text = Translation(speech2txt_result,trans_targ_code)
+	#print("(Debug)Translated text: ",translated_text)
 	Text_to_speech(translated_text,out_language)
 
 main()
