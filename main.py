@@ -279,6 +279,6 @@ def main():
 	speech2txt_result = Speech_to_text(in_language)
 	translated_text = Translation(speech2txt_result,trans_targ_code)
 	#print("(Debug)Translated text: ",translated_text)
-	Text_to_speech(translated_text,out_language)
+	Text_to_speech(str(translated_text),out_language)
 
 main()
