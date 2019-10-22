@@ -52,7 +52,9 @@ def Speech_to_text(input_language_code):
 	client = speech.SpeechClient()
 
 	# The name of the audio file to transcribe
-	file_name = os.path.join('/home','pi','Desktop',
+	# file_name = os.path.join('/home','pi','Desktop',
+	# 			'JusTalk','file.wav')
+	file_name = os.path.join('/Users','khoatran','Desktop',
 				'JusTalk','file.wav')
 
 	# Loads the audio into memory
@@ -136,39 +138,39 @@ def menu():
 					[2,"Amharic(Ethiopia)አማርኛ 					   | (ኢትዮጵያ)"						,"am-ET"		,"am"	,None],	
 					[3,"Armenian(Armenia)Հայ 					   | (Հայաստան)"					,"hy-AM"		,"hy"	,None],	
 					[4,"Azerbaijani(Azerbaijan) 				   | Azərbaycan(Azərbaycan)"		,"az-AZ"		,"az"	,None],
-					[5,"Arabic(Israel) 							   | العربية (إسرائيل)"				,"ar-IL"		,"ar"	,None],
-					[6,"Arabic(Jordan) 				   			   | العربية (الأردن)"				,"ar-JO"		,"ar"	,None],	
-					[7,"Arabic(United Arab Emirates) 			   | العربية (الإمارات)"			,"ar-AE"		,"ar"	,None],	
-					[8,"Arabic(Bahrain) 						   | العربية (البحرين)"				,"ar-BH"		,"ar"	,None],	
-					[9,"Arabic(Algeria) 				   		   | العربية (الجزائر)"				,"ar-DZ"		,"ar"	,None],	
-					[10,"Arabic(Saudi Arabia) 					   | العربية (السعودية)"			,"ar-SA"		,"ar"	,None],	
-					[11,"Arabic(Iraq) 				   			   | العربية (العراق)"				,"ar-IQ"		,"ar"	,None],	
-					[12,"Arabic(Kuwait) 						   | العربية (الكويت)"				,"ar-KW"		,"ar"	,None],
-					[13,"Arabic(Morocco) 				 		   | العربية (المغرب)"				,"ar-MA"		,"ar"	,None],	
-					[14,"Arabic(Tunisia) 				   		   | العربية (تونس)"				,"ar-TN"		,"ar"	,None],	
-					[15,"Arabic(Oman) 				   			   | العربية (عُمان)"				,"ar-OM"		,"ar"	,None],	
-					[16,"Arabic(State of Palestine) 			   | العربية (فلسطين)"				,"ar-PS"		,"ar"	,None],	
-					[17,"Arabic(Qatar) 				   			   | العربية (قطر)"					,"ar-QA"		,"ar"	,None],	
-					[18,"Arabic(Lebanon) 				   		   | العربية (لبنان)"				,"ar-LB"		,"ar"	,None],	
-					[19,"Arabic(Egypt) 				   			   | العربية (مصر)"					,"ar-EG"		,"ar"	,None],	
+					[5,"Arabic(Israel) 							   | العربية (إسرائيل)"				,"ar-IL"		,"ar"	,"ar-XA"],
+					[6,"Arabic(Jordan) 				   			   | العربية (الأردن)"				,"ar-JO"		,"ar"	,"ar-XA"],	
+					[7,"Arabic(United Arab Emirates) 			   | العربية (الإمارات)"			,"ar-AE"		,"ar"	,"ar-XA"],	
+					[8,"Arabic(Bahrain) 						   | العربية (البحرين)"				,"ar-BH"		,"ar"	,"ar-XA"],	
+					[9,"Arabic(Algeria) 				   		   | العربية (الجزائر)"				,"ar-DZ"		,"ar"	,"ar-XA"],	
+					[10,"Arabic(Saudi Arabia) 					   | العربية (السعودية)"			,"ar-SA"		,"ar"	,"ar-XA"],	
+					[11,"Arabic(Iraq) 				   			   | العربية (العراق)"				,"ar-IQ"		,"ar"	,"ar-XA"],	
+					[12,"Arabic(Kuwait) 						   | العربية (الكويت)"				,"ar-KW"		,"ar"	,"ar-XA"],
+					[13,"Arabic(Morocco) 				 		   | العربية (المغرب)"				,"ar-MA"		,"ar"	,"ar-XA"],	
+					[14,"Arabic(Tunisia) 				   		   | العربية (تونس)"				,"ar-TN"		,"ar"	,"ar-XA"],	
+					[15,"Arabic(Oman) 				   			   | العربية (عُمان)"				,"ar-OM"		,"ar"	,"ar-XA"],	
+					[16,"Arabic(State of Palestine) 			   | العربية (فلسطين)"				,"ar-PS"		,"ar"	,"ar-XA"],	
+					[17,"Arabic(Qatar) 				   			   | العربية (قطر)"					,"ar-QA"		,"ar"	,"ar-XA"],	
+					[18,"Arabic(Lebanon) 				   		   | العربية (لبنان)"				,"ar-LB"		,"ar"	,"ar-XA"],	
+					[19,"Arabic(Egypt) 				   			   | العربية (مصر)"					,"ar-EG"		,"ar"	,"ar-XA"],	
 					[20,"Bengali(Bangladesh) 				   	   | বাংলা (বাংলাদেশ)"					,"bn-BD"		,"bn"	,None],	
 					[21,"Bengali(India) 				   		   | বাংলা (ভারত)"					,"bn-IN"		,"bn"	,None],	
 					[22,"Basque(Spain) 				   			   | Euskara (Espainia)"			,"eu-ES"		,"eu"	,None],	
 					[23,"Bulgarian(Bulgaria) 					   | Български (България)"			,"bg-BG"		,"bg"	,None],
 					[24,"Croatian(Croatia) 						   | Hrvatski (Hrvatska)"			,"hr-HR"		,"hr"	,None],	
 					[25,"Catalan(Spain) 						   | Català (Espanya)"				,"ca-ES"		,"ca"	,None],	
-					[26,"Czech(Czech Republic) 					   | Čeština (Česká republika)"		,"cs-CZ"		,"cs"	,None],	
-					[27,"Chinese,Mandarin(Traditional, Taiwan) 	   | 國語 (台灣)"						,"zh-TW"		,"zh-TW",None],	
+					[26,"Czech(Czech Republic) 					   | Čeština (Česká republika)"		,"cs-CZ"		,"cs"	,"cs-CZ"],	
+					[27,"Chinese,Mandarin(Traditional, Taiwan) 	   | 國語 (台灣)"						,"zh-TW"		,"zh-TW","cmn-CN"],	
 					[28,"Chinese,Cantonese(Traditional, Hong Kong) | 廣東話 (香港)"					,"yue-Hant-HK"	,"zh"	,None],	
-					[29,"Chinese,Mandarin(Simplified, Hong Kong)   | 普通話 (香港)"					,"zh-HK"		,"zh"	,None], #zh OR zh-CN(for translation)
-					[30,"Chinese,Mandarin(Simplified, China) 	   | 普通话 (中国大陆)"				,"zh"			,"zh-CN",None],	
-					[31,"Danish(Denmark) 			 			   | Dansk (Danmark)"				,"da-DK"		,"da"	,None],	
-					[32,"Dutch(Netherlands) 		 			   | Nederlands (Nederland)"		,"nl-NL"		,"nl"	,None],	
-					[33,"English(Australia) 		 			   | English (Australia)"			,"en-AU"		,"en"	,None],	
+					[29,"Chinese,Mandarin(Simplified, Hong Kong)   | 普通話 (香港)"					,"zh-HK"		,"zh"	,"cmn-CN"], #zh OR zh-CN(for translation)
+					[30,"Chinese,Mandarin(Simplified, China) 	   | 普通话 (中国大陆)"				,"zh"			,"zh-CN","cmn-CN"],	
+					[31,"Danish(Denmark) 			 			   | Dansk (Danmark)"				,"da-DK"		,"da"	,"da-DK"],	
+					[32,"Dutch(Netherlands) 		 			   | Nederlands (Nederland)"		,"nl-NL"		,"nl"	,"nl-NL"],	
+					[33,"English(Australia) 		 			   | English (Australia)"			,"en-AU"		,"en"	,"en-AU"],	
 					[34,"English(Canada) 			 			   | English (Canada)"				,"en-CA"		,"en"	,None],	
 					[35,"English(Ghana) 			 			   | English (Ghana)"				,"en-GH"		,"en"	,None],	
-					[36,"English(United Kingdom) 	 			   | English (Great Britain)"		,"en-GB"		,"en"	,None],	
-					[37,"English(India) 			 			   | English (India)"				,"en-IN"		,"en"	,None],	
+					[36,"English(United Kingdom) 	 			   | English (Great Britain)"		,"en-GB"		,"en"	,"en-GB"],	
+					[37,"English(India) 			 			   | English (India)"				,"en-IN"		,"en"	,"en-IN"],	
 					[38,"English(Ireland) 			 			   | English (Ireland)"				,"en-IE"		,"en"	,None],	
 					[39,"English(Kenya) 			 			   | English (Kenya)"				,"en-KE"		,"en"	,None],	
 					[40,"English(New Zealand) 		 			   | English (New Zealand)"			,"en-NZ"		,"en"	,None],	
@@ -177,25 +179,25 @@ def menu():
 					[43,"English(Singapore) 		 			   | English (Singapore)"			,"en-SG"		,"en"	,None],	
 					[44,"English(South Africa) 		 			   | English (South Africa)"		,"en-ZA"		,"en"	,None],	
 					[45,"English(Tanzania) 			 			   | English (Tanzania)"			,"en-TZ"		,"en"	,None],	
-					[46,"English(United States) 	 			   | English (United States)"		,"en-US"		,"en"	,None],	
-					[47,"Filipino(Philippines) 		 			   | Filipino (Pilipinas)"			,"fil-PH"		,"tl"	,None],	
-					[48,"Finnish(Finland) 			 			   | Suomi (Suomi)"					,"fi-FI"		,"fi"	,None],	
-					[49,"French(Canada) 			 			   | Français (Canada)"				,"fr-CA"		,"fr"	,None],	
-					[50,"French(France) 			 			   | Français (France)"				,"fr-FR"		,"fr"	,None],	
-					[51,"Greek(Greece) 				 			   | Ελληνικά (Ελλάδα)"				,"el-GR"		,"el"	,None],	
+					[46,"English(United States) 	 			   | English (United States)"		,"en-US"		,"en"	,"en-US"],	
+					[47,"Filipino(Philippines) 		 			   | Filipino (Pilipinas)"			,"fil-PH"		,"tl"	,"fil-PH"],	
+					[48,"Finnish(Finland) 			 			   | Suomi (Suomi)"					,"fi-FI"		,"fi"	,"fi-FI"],	
+					[49,"French(Canada) 			 			   | Français (Canada)"				,"fr-CA"		,"fr"	,"fr-CA"],	
+					[50,"French(France) 			 			   | Français (France)"				,"fr-FR"		,"fr"	,"fr-FR"],	
+					[51,"Greek(Greece) 				 			   | Ελληνικά (Ελλάδα)"				,"el-GR"		,"el"	,"el-GR"],	
 					[52,"Galician(Spain) 			 			   | Galego (España)"				,"gl-ES"		,"gl"	,None],	
 					[53,"Georgian(Georgia) 			 			   | ქართული (საქართველო)"			,"ka-GE"		,"ka"	,None],	
 					[54,"Gujarati(India) 			 			   | ગુજરાતી (ભારત)"					,"gu-IN"		,"gu"	,None],	
-					[55,"German(Germany) 			 			   | Deutsch (Deutschland)"			,"de-DE"		,"de"	,None],	
+					[55,"German(Germany) 			 			   | Deutsch (Deutschland)"			,"de-DE"		,"de"	,"de-DE"],	
 					[56,"Hebrew(Israel) 			 			   | עברית (ישראל)"					,"he-IL"		,"he"	,None],	#he or iw(for translation)
-					[57,"Hindi(India) 				 			   | हिन्दी (भारत)"						,"hi-IN"		,"hi"	,None],	
-					[58,"Hungarian(Hungary) 		 			   | Magyar (Magyarország)"			,"hu-HU"		,"hu"	,None],	
-					[59,"Indonesian(Indonesia) 		 			   | Bahasa Indonesia(Indonesia)"	,"id-ID"		,"id"	,None],	
+					[57,"Hindi(India) 				 			   | हिन्दी (भारत)"						,"hi-IN"		,"hi"	,"hi-IN"],	
+					[58,"Hungarian(Hungary) 		 			   | Magyar (Magyarország)"			,"hu-HU"		,"hu"	,"hu-HU"],	
+					[59,"Indonesian(Indonesia) 		 			   | Bahasa Indonesia(Indonesia)"	,"id-ID"		,"id"	,"id-ID"],	
 					[60,"Icelandic(Iceland) 		 			   | Íslenska (Ísland)"				,"is-IS"		,"is"	,None],	
-					[61,"Italian(Italy) 			 			   | Italiano (Italia)"				,"it-IT"		,"it"	,None],	
+					[61,"Italian(Italy) 			 			   | Italiano (Italia)"				,"it-IT"		,"it"	,"it-IT"],	
 					[62,"Javanese(Indonesia) 		 			   | Jawa (Indonesia)"				,"jv-ID"		,"jw"	,None],	
-					[63,"Japanese(Japan) 			 			   | 日本語（日本）"					,"ja-JP"		,"ja"	,None],
-					[64,"Korean(South Korea) 		 			   | 한국어 (대한민국)"					,"ko-KR"		,"ko"	,None],	
+					[63,"Japanese(Japan) 			 			   | 日本語（日本）"					,"ja-JP"		,"ja"	,"ja-JP"],
+					[64,"Korean(South Korea) 		 			   | 한국어 (대한민국)"					,"ko-KR"		,"ko"	,"ko-KR"],	
 					[65,"Kannada(India) 			 			   | ಕನ್ನಡ (ಭಾರತ)"					,"kn-IN"		,"kn"	,None],	
 					[66,"Khmer(Cambodia) 			 			   | ភាសាខ្មែរ (កម្ពុជា)"				,"km-KH"		,"km"	,None],	
 					[67,"Lao(Laos) 					 			   | ລາວ (ລາວ)"						,"lo-LA"		,"lo"	,None],
@@ -205,52 +207,52 @@ def menu():
 					[71,"Malayalam(India) 			 			   | മലയാളം (ഇന്ത്യ)"				,"ml-IN"		,"ml"	,None],	
 					[72,"Marathi(India) 			 			   | मराठी (भारत)"						,"mr-IN"		,"mr"	,None],	
 					[73,"Nepali(Nepal) 				 			   | नेपाली (नेपाल)"					,"ne-NP"		,"ne"	,None],	
-					[74,"Norwegian Bokmål(Norway) 	 			   | Norsk bokmål (Norge)"			,"nb-NO"		,"no"	,None],	
+					[74,"Norwegian Bokmål(Norway) 	 			   | Norsk bokmål (Norge)"			,"nb-NO"		,"no"	,"nb-NO"],	
 					[75,"Persian(Iran) 				 			   | فارسی (ایران)"					,"fa-IR"		,"fa"	,None],	
-					[76,"Polish(Poland) 			 			   | Polski (Polska)"				,"pl-PL"		,"pl"	,None],	
-					[77,"Portuguese(Brazil) 		 			   | Português (Brasil)"			,"pt-BR"		,"pt"	,None],	
-					[78,"Portuguese(Portugal) 		 			   | Português (Portugal)"			,"pt-PT"		,"pt"	,None],	
+					[76,"Polish(Poland) 			 			   | Polski (Polska)"				,"pl-PL"		,"pl"	,"pl-PL"],	
+					[77,"Portuguese(Brazil) 		 			   | Português (Brasil)"			,"pt-BR"		,"pt"	,"pt-BR"],	
+					[78,"Portuguese(Portugal) 		 			   | Português (Portugal)"			,"pt-PT"		,"pt"	,"pt-PT"],	
 					[79,"Romanian(Romania) 			 			   | Română (România)"				,"ro-RO"		,"ro"	,None],				
-					[80,"Russian(Russia) 			 			   | Русский (Россия)"				,"ru-RU"		,"ru"	,None],
-					[81,"Spanish(Argentina) 		 			   | Español (Argentina)"			,"es-AR"		,"es"	,None],	
-					[82,"Spanish(Bolivia) 			 			   | Español (Bolivia)"				,"es-BO"		,"es"	,None],	
-					[83,"Spanish(Chile) 			 			   | Español (Chile)"				,"es-CL"		,"es"	,None],	
-					[84,"Spanish(Colombia 			 			   | Español (Colombia)"			,"es-CO"		,"es"	,None],	
-					[85,"Spanish(Costa Rica) 		 			   | Español (Costa Rica)"			,"es-CR"		,"es"	,None],	
-					[86,"Spanish(Ecuador) 			 			   | Español (Ecuador)"				,"es-EC"		,"es"	,None],
-					[87,"Spanish(El Salvador) 		 			   | Español (El Salvador)"			,"es-SV"		,"es"	,None],	
-					[88,"Spanish(Spain) 			 			   | Español (España)"				,"es-ES"		,"es"	,None],
-					[89,"Spanish(United States)		 			   | Español (Estados Unidos)"		,"es-US"		,"es"	,None],	
-					[90,"Spanish(Guatemala) 		 			   | Español (Guatemala)"			,"es-GT"		,"es"	,None],	
-					[91,"Spanish(Honduras) 			 			   | Español (Honduras)"			,"es-HN"		,"es"	,None],	
-					[92,"Spanish(Mexico) 			 			   | Español (México)"				,"es-MX"		,"es"	,None],	
-					[93,"Spanish(Nicaragua) 		 			   | Español (Nicaragua)"			,"es-NI"		,"es"	,None],	
-					[94,"Spanish(Panama) 			 			   | Español (Panamá)"				,"es-PA"		,"es"	,None],	
-					[95,"Spanish(Paraguay) 			 			   | Español (Paraguay)"			,"es-PY"		,"es"	,None],	
-					[96,"Spanish(Peru) 				 			   | Español (Perú)"				,"es-PE"		,"es"	,None],	
-					[97,"Spanish(Puerto Rico) 		 			   | Español (Puerto Rico)"			,"es-PR"		,"es"	,None],	
-					[98,"Spanish(Dominican Republic) 			   | Español (República Dominicana)","es-DO"		,"es"	,None],	
-					[99,"Spanish(Uruguay) 			 			   | Español (Uruguay)"				,"es-UY"		,"es"	,None],	
-					[100,"Spanish(Venezuela) 		 			   | Español (Venezuela)"			,"es-VE"		,"es"	,None],		
+					[80,"Russian(Russia) 			 			   | Русский (Россия)"				,"ru-RU"		,"ru"	,"ru-RU"],
+					[81,"Spanish(Argentina) 		 			   | Español (Argentina)"			,"es-AR"		,"es"	,"es-ES"],	
+					[82,"Spanish(Bolivia) 			 			   | Español (Bolivia)"				,"es-BO"		,"es"	,"es-ES"],	
+					[83,"Spanish(Chile) 			 			   | Español (Chile)"				,"es-CL"		,"es"	,"es-ES"],	
+					[84,"Spanish(Colombia 			 			   | Español (Colombia)"			,"es-CO"		,"es"	,"es-ES"],	
+					[85,"Spanish(Costa Rica) 		 			   | Español (Costa Rica)"			,"es-CR"		,"es"	,"es-ES"],	
+					[86,"Spanish(Ecuador) 			 			   | Español (Ecuador)"				,"es-EC"		,"es"	,"es-ES"],
+					[87,"Spanish(El Salvador) 		 			   | Español (El Salvador)"			,"es-SV"		,"es"	,"es-ES"],	
+					[88,"Spanish(Spain) 			 			   | Español (España)"				,"es-ES"		,"es"	,"es-ES"],
+					[89,"Spanish(United States)		 			   | Español (Estados Unidos)"		,"es-US"		,"es"	,"es-ES"],	
+					[90,"Spanish(Guatemala) 		 			   | Español (Guatemala)"			,"es-GT"		,"es"	,"es-ES"],	
+					[91,"Spanish(Honduras) 			 			   | Español (Honduras)"			,"es-HN"		,"es"	,"es-ES"],	
+					[92,"Spanish(Mexico) 			 			   | Español (México)"				,"es-MX"		,"es"	,"es-ES"],	
+					[93,"Spanish(Nicaragua) 		 			   | Español (Nicaragua)"			,"es-NI"		,"es"	,"es-ES"],	
+					[94,"Spanish(Panama) 			 			   | Español (Panamá)"				,"es-PA"		,"es"	,"es-ES"],	
+					[95,"Spanish(Paraguay) 			 			   | Español (Paraguay)"			,"es-PY"		,"es"	,"es-ES"],	
+					[96,"Spanish(Peru) 				 			   | Español (Perú)"				,"es-PE"		,"es"	,"es-ES"],	
+					[97,"Spanish(Puerto Rico) 		 			   | Español (Puerto Rico)"			,"es-PR"		,"es"	,"es-ES"],	
+					[98,"Spanish(Dominican Republic) 			   | Español (República Dominicana)","es-DO"		,"es"	,"es-ES"],	
+					[99,"Spanish(Uruguay) 			 			   | Español (Uruguay)"				,"es-UY"		,"es"	,"es-ES"],	
+					[100,"Spanish(Venezuela) 		 			   | Español (Venezuela)"			,"es-VE"		,"es"	,"es-ES"],		
 					[101,"Serbian(Serbia) 			 			   | Српски (Србија)"				,"sr-RS"		,"sr"	,None],
 					[102,"Sinhala(Sri Lanka) 		 			   | සිංහල (ශ්රී ලංකාව)"				,"si-LK"		,"si"	,None],	
-					[103,"Slovak(Slovakia)			 			   | Slovenčina (Slovensko)"		,"sk-SK"		,"sk"	,None],	
+					[103,"Slovak(Slovakia)			 			   | Slovenčina (Slovensko)"		,"sk-SK"		,"sk"	,"sk-SK"],	
 					[104,"Slovenian(Slovenia) 		 			   | Slovenščina (Slovenija)"		,"sl-SI"		,"sl"	,None],	
 					[105,"Sundanese(Indonesia) 		 			   | Urang (Indonesia)"				,"su-ID"		,"su"	,None],	
 					[106,"Swahili(Tanzania) 		 			   | Swahili (Tanzania)"			,"sw-TZ"		,"sw"	,None],	
 					[107,"Swahili(Kenya) 			 			   | Swahili (Kenya)"				,"sw-KE"		,"sw"	,None],	
-					[108,"Swedish(Sweden) 			 			   | Svenska (Sverige)"				,"sv-SE"		,"sv"	,None],
+					[108,"Swedish(Sweden) 			 			   | Svenska (Sverige)"				,"sv-SE"		,"sv"	,"sv-SE"],
 					[109,"Tamil(India) 				 			   | தமிழ் (இந்தியா)"					,"ta-IN"		,"ta"	,None],	
 					[110,"Tamil(Singapore) 			 			   | தமிழ் (சிங்கப்பூர்)"					,"ta-SG"		,"ta"	,None],	
 					[111,"Tamil(Sri Lanka) 			 			   | தமிழ் (இலங்கை)"					,"ta-LK"		,"ta"	,None],	
 					[112,"Tamil(Malaysia) 			 			   | தமிழ் (மலேசியா)"					,"ta-MY"		,"ta"	,None],	
 					[113,"Telugu(India) 			 			   | తెలుగు (భారతదేశం)"				,"te-IN"		,"te"	,None],	
-					[114,"Turkish(Turkey) 			 			   | Türkçe (Türkiye)"				,"tr-TR"		,"tr"	,None],		
+					[114,"Turkish(Turkey) 			 			   | Türkçe (Türkiye)"				,"tr-TR"		,"tr"	,"tr-TR"],		
 					[115,"Thai(Thailand) 			 			   | ไทย (ประเทศไทย)"				,"th-TH"		,"th"	,None],	
-					[116,"Ukrainian(Ukraine) 		 			   | Українська (Україна)"			,"uk-UA"		,"uk"	,None],	
+					[116,"Ukrainian(Ukraine) 		 			   | Українська (Україна)"			,"uk-UA"		,"uk"	,"uk-UA"],	
 					[117,"Urdu(Pakistan) 			 			   | اردو (پاکستان)"				,"ur-PK"		,"ur"	,None],	
 					[118,"Urdu(India) 				 			   | اردو (بھارت)"					,"ur-IN"		,"ur"	,None],	
-					[119,"Vietnamese(Vietnam) 		 			   | Tiếng Việt (Việt Nam)"			,"vi-VN"		,"vi"	,None],
+					[119,"Vietnamese(Vietnam) 		 			   | Tiếng Việt (Việt Nam)"			,"vi-VN"		,"vi"	,"vi-VN"],
 					[120,"Zulu(South Africa) 		 			   | IsiZulu (Ningizimu Afrika)"	,"zu-ZA"		,"zu"	,None]]	
 	"""
 		Languages that don't have Speech-to-text
@@ -297,7 +299,6 @@ def menu():
 	"""
 	isSelected = False
 	while(isSelected is False):
-		print("አማርኛ ")
 		for language in language_list:
 			print str(language[0]) + " " + language[1]
 			# print(temp)
@@ -317,7 +318,7 @@ def menu():
 		if(language[0]==out_language_num):
 			trans_targ_code = language[3]
 		if(language[0]==out_language_num):
-			out_language = language[2]
+			out_language = language[4]
 			print("Output Language: ",language[1])
 
 	return in_language,trans_targ_code,out_language
@@ -328,7 +329,10 @@ def main():
 	speech2txt_result = Speech_to_text(in_language)
 	translated_text = Translation(speech2txt_result,trans_targ_code)
 	#print("(Debug)Translated text: ",translated_text)
-	Text_to_speech(str(translated_text),out_language)
+	if(out_language != None):
+		Text_to_speech(str(translated_text),out_language)
+	else:
+		print("Text to Speech not available for this language")
 
 if __name__ == "main":
 	main()
