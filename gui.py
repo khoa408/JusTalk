@@ -95,13 +95,11 @@ def Speech_to_text(input_language_code):
 	client = speech.SpeechClient()
 
 	# The name of the audio file to transcribe
-	# file_name = os.path.join('/home','pi','Desktop',
+	# input_audio_file_path = os.path.join('/home','pi','Desktop',
 	# 			'JusTalk','file.wav')
-	file_name = os.path.join('/home','khoa','Desktop',
-				'JusTalk','file.wav')
 
 	# Loads the audio into memory
-	with io.open(file_name, 'rb') as audio_file:
+	with io.open(input_audio_file_path, 'rb') as audio_file:
 	    content = audio_file.read()
 	    audio = types.RecognitionAudio(content=content)
 
@@ -118,7 +116,7 @@ def Speech_to_text(input_language_code):
 		print(u'Transcript: {}'.format(result.alternatives[0].transcript))
 		print(u"Print out result", result)
 	
-	# return str(result.alternatives[0].transcript)
+	#return str(result.alternatives[0].transcript)
 	return result
 
 def Translation(text,language):
@@ -179,19 +177,26 @@ def OnRecord():
 	record = not record 
 	if not record:
 		buttontext.set("Record")
+		while not record_finished:
+			pass
+		print("getting index")	
 		string_left = leftcombo.get()
 		string_right = rightcombo.get()
 		in_language = language_list[FindIndex(string_left)][3]
 		out_language = language_list[FindIndex(string_right)][5]
 		trans_targ_code = language_list[FindIndex(string_right)][4]
+		print("Speech2text")
 		speech2txt_result = Speech_to_text(in_language)
-		lefttext.set(speech2txt_result)
+		lefttext.set(str(speech2txt_result.alternatives[0].transcript))
+		print("translation")
 		translated_text = Translation(speech2txt_result,trans_targ_code)
 		righttext.set(translated_text)
+		print("texttospeech")
 		Text_to_speech(str(translated_text),out_language)
 		#TODO: play audio
 	else:
-		buttontext.set("Stop")   
+		buttontext.set("Stop")
+		print("Start recording")   
 
 
 def ToggleFull(event):
@@ -204,6 +209,7 @@ def RecordThread():
 	import wave
 
 	global record
+	global record_finished
 	FORMAT = pyaudio.paInt16
 	CHANNELS = 1
 	RATE = 44100
@@ -212,6 +218,8 @@ def RecordThread():
 	WAVE_OUTPUT_FILENAME = "file.wav"
 	 
 	while True:
+		while not record:
+			pass
 		audio = pyaudio.PyAudio()
 		stream = audio.open(format=FORMAT, channels=CHANNELS,
 					rate=RATE, input=True,
@@ -219,11 +227,11 @@ def RecordThread():
 		
 		frames = []
 		print("Ready to record...")
+		record_finished = False	
 		while record:
 			# start Recording
 			data = stream.read(CHUNK)
 			frames.append(data)		
-		print("Finished Recording")
 		# stop Recording
 		stream.stop_stream()
 		stream.close()
@@ -233,10 +241,16 @@ def RecordThread():
 		waveFile.setsampwidth(audio.get_sample_size(FORMAT))
 		waveFile.setframerate(RATE)
 		waveFile.writeframes(b''.join(frames))
-		waveFile.close()       
+		waveFile.close()
+		print("finished recording")
+		record_finished = True      
 
+
+dir_path = 	os.getcwd()
+input_audio_file_path = os.path.join(dir_path,'file.wav')
 #GUI setup 
 root = Tk() 
+record_finished = False
 # root.minsize(400,400)
 
 #full screen by default
@@ -285,6 +299,7 @@ x.daemon = True
 x.start()
 
 root.mainloop()
+
 
 
 
