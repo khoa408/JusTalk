@@ -10,8 +10,6 @@ from google.cloud.speech import types
 #from google.cloud import translate
 from google.cloud import translate_v2 as translate
 
-print("testing")
-
 def Record():
 	import pyaudio
 	import wave
