@@ -7,7 +7,8 @@ from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
 # Imports the Google Cloud client library
-from google.cloud import translate
+#from google.cloud import translate
+from google.cloud import translate_v2 as translate
 
 print("testing")
 
@@ -56,7 +57,7 @@ def Speech_to_text(input_language_code):
 	# The name of the audio file to transcribe
 	# file_name = os.path.join('/home','pi','Desktop',
 	# 			'JusTalk','file.wav')
-	file_name = os.path.join('/Users','khoatran','Desktop',
+	file_name = os.path.join('/home','khoa','Desktop',
 				'JusTalk','file.wav')
 
 	# Loads the audio into memory
@@ -302,12 +303,12 @@ def menu():
 	isSelected = False
 	while(isSelected is False):
 		for language in language_list:
-			print str(language[0]) + " " + language[1]
+			print(str(language[0]) + " " + language[1])
 			# print(temp)
 			# print language[0] 
 			# print language[1]
-		in_language_num = int(raw_input("Input Language: "))
-		out_language_num = int(raw_input("Output Language: "))
+		in_language_num = int(input("Input Language: "))
+		out_language_num = int(input("Output Language: "))
 		if((in_language_num > 0 and in_language_num <= 120) and (out_language_num > 0 and out_language_num <= 120)):
 			isSelected = True
 		else:
@@ -336,5 +337,6 @@ def main():
 	else:
 		print("Text to Speech not available for this language")
 
-if __name__ == "main":
-	main()
+# if __name__ == "main":
+# 	main()
+main()
