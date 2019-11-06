@@ -14,6 +14,10 @@ from tkinter import ttk
 import threading
 import time
 
+from playsound import playsound
+#import simplyaudio as simpAud
+import gi
+
 
 
 language_list =[
@@ -166,6 +170,7 @@ def Text_to_speech(translated_text,translated_language_code):
 	    # Write the response to the output file.
 	    out.write(response.audio_content)
 	    print('Audio content written to file "output.mp3"')
+	y.start()
 
 def FindIndex(input_string):
 	for language in language_list:
@@ -245,6 +250,11 @@ def RecordThread():
 		print("finished recording")
 		record_finished = True      
 
+def play_output_audio():
+	dir_path = 	os.getcwd()
+	input_audio_file_path = os.path.join(dir_path,'output.mp3')
+	playsound(input_audio_file_path)
+
 
 dir_path = 	os.getcwd()
 input_audio_file_path = os.path.join(dir_path,'file.wav')
@@ -297,6 +307,9 @@ rightlabel.pack(side = TOP)
 x = threading.Thread(target = RecordThread)
 x.daemon = True
 x.start()
+
+y = threading.Thread(target = play_output_audio)
+y.daemon = True
 
 root.mainloop()
 
