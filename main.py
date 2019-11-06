@@ -9,8 +9,6 @@ from google.cloud.speech import types
 # Imports the Google Cloud client library
 from google.cloud import translate
 
-print("testing")
-
 def Record():
 	import pyaudio
 	import wave
