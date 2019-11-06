@@ -7,7 +7,7 @@ from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
 # Imports the Google Cloud client library
-from google.cloud import translate
+from google.cloud import translate_v2 as translate
 
 from tkinter import *
 from tkinter import ttk
@@ -97,13 +97,13 @@ def Speech_to_text(input_language_code):
 	# The name of the audio file to transcribe
 	# file_name = os.path.join('/home','pi','Desktop',
 	# 			'JusTalk','file.wav')
-	file_name = os.path.join('/Users','khoatran','Desktop',
+	file_name = os.path.join('/home','khoa','Desktop',
 				'JusTalk','file.wav')
 
 	# Loads the audio into memory
 	with io.open(file_name, 'rb') as audio_file:
 	    content = audio_file.read()
-	    audio = types.RecognitionAudio(content=content)    
+	    audio = types.RecognitionAudio(content=content)
 
 	config = types.RecognitionConfig(
 	    encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
@@ -169,35 +169,41 @@ def Text_to_speech(translated_text,translated_language_code):
 	    out.write(response.audio_content)
 	    print('Audio content written to file "output.mp3"')
 
+def FindIndex(input_string):
+	for language in language_list:
+		if language[1] == input_string:
+			return language_list.index(language)
 
 def OnRecord():
-    global record
-    if record:
-        buttontext.set("Record")
-        in_language = language_list[leftcombo.get()][3]
-        out_language = language_list[rightcombo.get()][5]
-        trans_targ_code = language_list[rightcombo.get()][4]
-        speech2txt_result = Speech_to_text(in_language)
-        lefttext.set(speech2txt_result)
+	global record
+	record = not record 
+	if not record:
+		buttontext.set("Record")
+		string_left = leftcombo.get()
+		string_right = rightcombo.get()
+		in_language = language_list[FindIndex(string_left)][3]
+		out_language = language_list[FindIndex(string_right)][5]
+		trans_targ_code = language_list[FindIndex(string_right)][4]
+		speech2txt_result = Speech_to_text(in_language)
+		lefttext.set(speech2txt_result)
 		translated_text = Translation(speech2txt_result,trans_targ_code)
 		righttext.set(translated_text)
 		Text_to_speech(str(translated_text),out_language)
 		#TODO: play audio
-    else:
-        buttontext.set("Stop")
-    record = not record    
+	else:
+		buttontext.set("Stop")   
 
 
 def ToggleFull(event):
-    global fullscreen
-    fullscreen = not fullscreen
-    root.attributes("-fullscreen", fullscreen)
+	global fullscreen
+	fullscreen = not fullscreen
+	root.attributes("-fullscreen", fullscreen)
 
 def RecordThread():
-    import pyaudio
+	import pyaudio
 	import wave
 
-    global record
+	global record
 	FORMAT = pyaudio.paInt16
 	CHANNELS = 1
 	RATE = 44100
@@ -208,15 +214,15 @@ def RecordThread():
 	while True:
 		audio = pyaudio.PyAudio()
 		stream = audio.open(format=FORMAT, channels=CHANNELS,
-	                rate=RATE, input=True,
-	                frames_per_buffer=CHUNK)
+					rate=RATE, input=True,
+					frames_per_buffer=CHUNK)
 		
 		frames = []
 		print("Ready to record...")
 		while record:
 			# start Recording
 			data = stream.read(CHUNK)
-	    	frames.append(data)		
+			frames.append(data)		
 		print("Finished Recording")
 		# stop Recording
 		stream.stop_stream()
@@ -254,7 +260,7 @@ recordbutton.pack(side = RIGHT, padx=20, pady=20)
 leftframe = Frame(root)
 leftframe.pack( side = LEFT)
 test_string = ["January", "February", "March", "April"]
-leftcombo = ttk.Combobox(leftframe,values = test_string)
+leftcombo = ttk.Combobox(leftframe,values = gui_language_list)
 leftcombo.grid(column=0, row=1)
 leftcombo.current(0)
 leftcombo.pack(side = TOP)
@@ -265,7 +271,7 @@ leftlabel.pack(side = TOP)
 
 rightframe = Frame(root)
 rightframe.pack(side = RIGHT)
-rightcombo = ttk.Combobox(rightframe,values = test_string)
+rightcombo = ttk.Combobox(rightframe,values = gui_language_list)
 rightcombo.grid(column=0, row=1)
 rightcombo.current(0)
 rightcombo.pack(side = TOP)
