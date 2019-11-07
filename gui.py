@@ -18,10 +18,13 @@ from playsound import playsound
 #import simplyaudio as simpAud
 import gi
 
+from google.cloud import texttospeech
+import pyaudio
+import wave
 
 
-language_list =[
-					[1,"English(United States)", 	 			   "| English (United States)"		,"en-US"		,"en"	,"en-US"],
+
+language_list =[	[1,"English(United States)", 	 			   "| English (United States)"		,"en-US"		,"en"	,"en-US"],
 					[2,"Spanish(Mexico)", 			 			   "| Español (México)"				,"es-MX"		,"es"	,"es-ES"],
 					[3,"Chinese,Mandarin(Simplified)", 	   "| 普通话 (中国大陆)"				,"zh"			,"zh-CN","cmn-CN"],	
 					[4,"Japanese(Japan)", 			 			   "| 日本語（日本）"					,"ja-JP"		,"ja"	,"ja-JP"],
@@ -42,7 +45,6 @@ language_list =[
 					[19,"Arabic(Egypt)"," 				   			   | العربية (مصر)"					,"ar-EG"		,"ar"	,"ar-XA"],	
 					[20,"Czech(Czech Republic)"," 					   | Čeština (Česká republika)"		,"cs-CZ"		,"cs"	,"cs-CZ"],	
 					[21,"Chinese,Mandarin(Traditional)"," 	   | 國語 (台灣)"						,"zh-TW"		,"zh-TW","cmn-CN"],	
-					
 					[23,"Danish(Denmark)"," 			 			   | Dansk (Danmark)"				,"da-DK"		,"da"	,"da-DK"],	
 					[24,"Dutch(Netherlands)"," 		 			   | Nederlands (Nederland)"		,"nl-NL"		,"nl"	,"nl-NL"],	
 					[25,"English(Australia)"," 		 			   | English (Australia)"			,"en-AU"		,"en"	,"en-AU"],	
@@ -143,7 +145,7 @@ def Translation(text,language):
 	return translation['translatedText']
 
 def Text_to_speech(translated_text,translated_language_code):
-	from google.cloud import texttospeech
+	
 
 	# Instantiates a client
 	client = texttospeech.TextToSpeechClient()
@@ -170,7 +172,6 @@ def Text_to_speech(translated_text,translated_language_code):
 	    # Write the response to the output file.
 	    out.write(response.audio_content)
 	    print('Audio content written to file "output.mp3"')
-	y.start()
 
 def FindIndex(input_string):
 	for language in language_list:
@@ -179,29 +180,56 @@ def FindIndex(input_string):
 
 def OnRecord():
 	global record
+	global record_finished
 	record = not record 
 	if not record:
 		buttontext.set("Record")
 		while not record_finished:
-			pass
-		print("getting index")	
+			pass	
 		string_left = leftcombo.get()
 		string_right = rightcombo.get()
 		in_language = language_list[FindIndex(string_left)][3]
 		out_language = language_list[FindIndex(string_right)][5]
 		trans_targ_code = language_list[FindIndex(string_right)][4]
-		print("Speech2text")
+		print("Speech2text Completed")
 		speech2txt_result = Speech_to_text(in_language)
 		lefttext.set(str(speech2txt_result.alternatives[0].transcript))
-		print("translation")
+		print("Translation Completed")
 		translated_text = Translation(speech2txt_result,trans_targ_code)
 		righttext.set(translated_text)
-		print("texttospeech")
-		Text_to_speech(str(translated_text),out_language)
-		#TODO: play audio
+
+		text2speech_thread = threading.Thread(target = text2speech_thread_function, args = (str(translated_text),out_language))
+		text2speech_thread.daemon = True
+		text2speech_thread.start()
 	else:
 		buttontext.set("Stop")
-		print("Start recording")   
+		record_finished = False
+		recordthread.start()
+
+
+	# global record
+	# record = not record 
+	# if not record:
+	# 	buttontext.set("Record")
+	# 	while not record_finished:
+	# 		pass
+	# 	print("getting index")	
+	# 	string_left = leftcombo.get()
+	# 	string_right = rightcombo.get()
+	# 	in_language = language_list[FindIndex(string_left)][3]
+	# 	out_language = language_list[FindIndex(string_right)][5]
+	# 	trans_targ_code = language_list[FindIndex(string_right)][4]
+	# 	print("Speech2text")
+	# 	speech2txt_result = Speech_to_text(in_language)
+	# 	lefttext.set(str(speech2txt_result.alternatives[0].transcript))
+	# 	print("translation")
+	# 	translated_text = Translation(speech2txt_result,trans_targ_code)
+	# 	righttext.set(translated_text)
+	# 	print("texttospeech")
+	# 	Text_to_speech(str(translated_text),out_language)
+	# else:
+	# 	buttontext.set("Stop")
+	# 	print("Start recording")   
 
 
 def ToggleFull(event):
@@ -210,11 +238,9 @@ def ToggleFull(event):
 	root.attributes("-fullscreen", fullscreen)
 
 def RecordThread():
-	import pyaudio
-	import wave
-
 	global record
 	global record_finished
+
 	FORMAT = pyaudio.paInt16
 	CHANNELS = 1
 	RATE = 44100
@@ -222,33 +248,58 @@ def RecordThread():
 	RECORD_SECONDS = 5
 	WAVE_OUTPUT_FILENAME = "file.wav"
 	 
-	while True:
-		while not record:
-			pass
-		audio = pyaudio.PyAudio()
-		stream = audio.open(format=FORMAT, channels=CHANNELS,
-					rate=RATE, input=True,
-					frames_per_buffer=CHUNK)
+	audio = pyaudio.PyAudio()
+	stream = audio.open(format=FORMAT, channels=CHANNELS,
+				rate=RATE, input=True,
+				frames_per_buffer=CHUNK)
+	
+	frames = []
+	print("Start Recoding...")	
+	while record:
+		# start Recording
+		data = stream.read(CHUNK)
+		frames.append(data)		
+	# stop Recording
+	stream.stop_stream()
+	stream.close()
+	audio.terminate()
+	waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+	waveFile.setnchannels(CHANNELS)
+	waveFile.setsampwidth(audio.get_sample_size(FORMAT))
+	waveFile.setframerate(RATE)
+	waveFile.writeframes(b''.join(frames))
+	waveFile.close()
+	print("Finished recording")
+	record_finished = True
+
+
+	# while True:
+	# 	while not record:
+	# 		pass
+	# 	audio = pyaudio.PyAudio()
+	# 	stream = audio.open(format=FORMAT, channels=CHANNELS,
+	# 				rate=RATE, input=True,
+	# 				frames_per_buffer=CHUNK)
 		
-		frames = []
-		print("Ready to record...")
-		record_finished = False	
-		while record:
-			# start Recording
-			data = stream.read(CHUNK)
-			frames.append(data)		
-		# stop Recording
-		stream.stop_stream()
-		stream.close()
-		audio.terminate()
-		waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-		waveFile.setnchannels(CHANNELS)
-		waveFile.setsampwidth(audio.get_sample_size(FORMAT))
-		waveFile.setframerate(RATE)
-		waveFile.writeframes(b''.join(frames))
-		waveFile.close()
-		print("finished recording")
-		record_finished = True      
+	# 	frames = []
+	# 	print("Ready to record...")
+	# 	record_finished = False	
+	# 	while record:
+	# 		# start Recording
+	# 		data = stream.read(CHUNK)
+	# 		frames.append(data)		
+	# 	# stop Recording
+	# 	stream.stop_stream()
+	# 	stream.close()
+	# 	audio.terminate()
+	# 	waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+	# 	waveFile.setnchannels(CHANNELS)
+	# 	waveFile.setsampwidth(audio.get_sample_size(FORMAT))
+	# 	waveFile.setframerate(RATE)
+	# 	waveFile.writeframes(b''.join(frames))
+	# 	waveFile.close()
+	# 	print("finished recording")
+	# 	record_finished = True      
 
 def play_output_audio():
 	dir_path = 	os.getcwd()
@@ -256,8 +307,20 @@ def play_output_audio():
 	playsound(input_audio_file_path)
 
 
-dir_path = 	os.getcwd()
-input_audio_file_path = os.path.join(dir_path,'file.wav')
+
+
+def text2speech_thread_function(translated_text,translated_language_code):
+	Text_to_speech(translated_text,translated_language_code)
+	print("Text2speech finished")
+	dir_path = 	os.getcwd()
+	input_audio_file_path = os.path.join(dir_path,'output.mp3')
+	playsound(input_audio_file_path)
+	print("Output audio played")
+
+
+
+# dir_path = 	os.getcwd()
+# input_audio_file_path = os.path.join(dir_path,'file.wav')
 #GUI setup 
 root = Tk() 
 record_finished = False
@@ -304,12 +367,11 @@ righttext.set("")
 rightlabel = Label(rightframe,textvariable = righttext ,width = 30,wraplength = 150)
 rightlabel.pack(side = TOP)
 
-x = threading.Thread(target = RecordThread)
-x.daemon = True
-x.start()
+recordthread = threading.Thread(target = RecordThread)
+recordthread.daemon = True
 
-y = threading.Thread(target = play_output_audio)
-y.daemon = True
+audiothread = threading.Thread(target = play_output_audio)
+audiothread.daemon = True
 
 root.mainloop()
 
