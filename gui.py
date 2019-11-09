@@ -204,6 +204,8 @@ def OnRecord():
 	else:
 		buttontext.set("Stop")
 		record_finished = False
+		recordthread = threading.Thread(target = RecordThread)
+		recordthread.daemon = True
 		recordthread.start()
 
 
@@ -367,11 +369,11 @@ righttext.set("")
 rightlabel = Label(rightframe,textvariable = righttext ,width = 30,wraplength = 150)
 rightlabel.pack(side = TOP)
 
-recordthread = threading.Thread(target = RecordThread)
-recordthread.daemon = True
+# recordthread = threading.Thread(target = RecordThread)
+# recordthread.daemon = True
 
-audiothread = threading.Thread(target = play_output_audio)
-audiothread.daemon = True
+# audiothread = threading.Thread(target = play_output_audio)
+# audiothread.daemon = True
 
 root.mainloop()
 
