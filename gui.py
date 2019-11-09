@@ -319,8 +319,8 @@ def text2speech_thread_function(translated_text,translated_language_code):
 
 
 
-# dir_path = 	os.getcwd()
-# input_audio_file_path = os.path.join(dir_path,'file.wav')
+dir_path = 	os.getcwd()
+input_audio_file_path = os.path.join(dir_path,'file.wav')
 #GUI setup 
 root = Tk() 
 record_finished = False
