@@ -21,7 +21,9 @@ import gi
 from google.cloud import texttospeech
 import pyaudio
 import wave
+import pygame
 
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/pi/Desktop/JusTalk-d73706149e2a.json"
 
 
 language_list =[	[1,"English(United States)", 	 			   "| English (United States)"		,"en-US"		,"en"	,"en-US"],
@@ -111,7 +113,7 @@ def Speech_to_text(input_language_code):
 
 	config = types.RecognitionConfig(
 	    encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
-	    sample_rate_hertz=44100,
+	    sample_rate_hertz=16000,
 	    language_code = input_language_code)
 
 	# Detects speech in the audio file
@@ -245,7 +247,7 @@ def RecordThread():
 
 	FORMAT = pyaudio.paInt16
 	CHANNELS = 1
-	RATE = 44100
+	RATE = 16000
 	CHUNK = 1024
 	RECORD_SECONDS = 5
 	WAVE_OUTPUT_FILENAME = "file.wav"
@@ -306,7 +308,7 @@ def RecordThread():
 def play_output_audio():
 	dir_path = 	os.getcwd()
 	input_audio_file_path = os.path.join(dir_path,'output.mp3')
-	playsound(input_audio_file_path)
+	#playsound(input_audio_file_path)
 
 
 
@@ -316,7 +318,12 @@ def text2speech_thread_function(translated_text,translated_language_code):
 	print("Text2speech finished")
 	dir_path = 	os.getcwd()
 	input_audio_file_path = os.path.join(dir_path,'output.mp3')
-	playsound(input_audio_file_path)
+	#playsound(input_audio_file_path)
+	pygame.mixer.init()
+	pygame.mixer.music.load(input_audio_file_path)
+	pygame.mixer.music.play()
+	while pygame.mixer.music.get_busy() == True:
+		continue
 	print("Output audio played")
 
 
