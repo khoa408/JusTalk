@@ -331,7 +331,8 @@ def text2speech_thread_function(translated_text,translated_language_code):
 dir_path = 	os.getcwd()
 input_audio_file_path = os.path.join(dir_path,'file.wav')
 #GUI setup 
-root = Tk() 
+root = Tk()
+root.title("JusTalk")
 record_finished = False
 # root.minsize(400,400)
 
