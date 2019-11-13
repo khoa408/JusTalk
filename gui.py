@@ -14,7 +14,7 @@ from tkinter import ttk
 import threading
 import time
 
-from playsound import playsound
+#from playsound import playsound
 #import simplyaudio as simpAud
 import gi
 
