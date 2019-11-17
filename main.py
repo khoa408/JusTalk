@@ -9,6 +9,7 @@ from google.cloud.speech import types
 # Imports the Google Cloud client library
 #from google.cloud import translate
 from google.cloud import translate_v2 as translate
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/khoa/Desktop/JusTalk-d73706149e2a.json"
 
 def Record():
 	import pyaudio
