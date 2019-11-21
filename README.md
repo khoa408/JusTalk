@@ -1,34 +1,42 @@
 # JusTalk
 
 ### Wenhao Tan, Amrit Thapa, Khoa Tran, Long Vu
-1. Abstract: https://docs.google.com/presentation/d/1231-SMrZi-ZwCWly-Zq6qjbRMwKIVmCrPr9n3Y4eBB4/edit?usp=sharing
-2. Mid-Semester Update: https://docs.google.com/presentation/d/1MJ8uhqp4fPv2BBnxLeWKV0CXuA7NlqNdYIj64fqnrK4/edit?usp=sharing
+1. Final Presentation: https://docs.google.com/presentation/d/1hHNOnH4PgLLr84fdSiB7loQG5rdbbPnGG7iwrNrT69U/edit?usp=sharing
+2. Final Report: https://docs.google.com/document/d/1NamAf1pQ9dkOhYDfTQuyvIMKmVMTUYUABGjdg650T1Q/edit?usp=sharing
 
 <br/>
 
-(Prereq)Install the following:
+Google Cloud Platform:
+-----------------
+Follow Google instruction on how to create a service account, create a project, and generate an API key
+
+<br/>
+
+(Quick Start)For LINUX, Install the following:
 -----------------
 <br/>
-python 2.7<br/>
-pip<br/>
-virtualenv<br/>
-Google Speech-to-Text client library: `pip install --upgrade google-cloud-speech`<br/>
-Google Translate client library: `pip install --upgrade google-cloud-translate`<br/>
-Google Text-to-Speech client library: `pip install --upgrade google-cloud-texttospeech` (not yet implemented)<br/>
+python 3<br/>
+pip3<br/>
+venv<br/>
+Google Speech-to-Text client library: `pip3 install --upgrade google-cloud-speech`<br/>
+Google Translate client library: `pip3 install --upgrade google-cloud-translate`<br/>
+Google Text-to-Speech client library: `pip3 install --upgrade google-cloud-texttospeech` (not yet implemented)<br/>
+Pyaudio<br/>
+Tkinter<br/>
+Playsound<br/>
 <br/>
 <br/>
+
+A more in-depth installation guide:
+https://docs.google.com/document/d/1VVnSQ6nN291IRp5V_dwOy1i-RKQ1EMHy2uOeNGphD1Q/edit?usp=sharing
 
 Running the app
 -----------------
 To verify service account key
 <br/>
-For Mac<br/>
-`export GOOGLE_APPLICATION_CREDENTIALS="[PATH]"`<br/>
-For Windows with PowerShell<br/>
-`$env:GOOGLE_APPLICATION_CREDENTIALS="[PATH]]"`<br/>
-For Windows with Command Prompt<br/>
-`set GOOGLE_APPLICATION_CREDENTIALS=[PATH]`<br/>
-i.e: PATH = C:\Users\username\Downloads\[FILE_NAME].json
+For Ubuntu 18.04 LTS<br/>
+1. Modify all the file paths in JusTalk_LINUX.py
+2. Run using terminal: Python3 JusTalk_LINUX.py
 
 <br/>
 <br/>
