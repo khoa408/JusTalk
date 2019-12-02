@@ -210,33 +210,12 @@ def OnRecord():
 		record_finished = False
 		recordthread = threading.Thread(target = RecordThread)
 		recordthread.daemon = True
-		recordthread.start()
+		recordthread.start() 
 
-
-	# global record
-	# record = not record 
-	# if not record:
-	# 	buttontext.set("Record")
-	# 	while not record_finished:
-	# 		pass
-	# 	print("getting index")	
-	# 	string_left = leftcombo.get()
-	# 	string_right = rightcombo.get()
-	# 	in_language = language_list[FindIndex(string_left)][3]
-	# 	out_language = language_list[FindIndex(string_right)][5]
-	# 	trans_targ_code = language_list[FindIndex(string_right)][4]
-	# 	print("Speech2text")
-	# 	speech2txt_result = Speech_to_text(in_language)
-	# 	lefttext.set(str(speech2txt_result.alternatives[0].transcript))
-	# 	print("translation")
-	# 	translated_text = Translation(speech2txt_result,trans_targ_code)
-	# 	righttext.set(translated_text)
-	# 	print("texttospeech")
-	# 	Text_to_speech(str(translated_text),out_language)
-	# else:
-	# 	buttontext.set("Stop")
-	# 	print("Start recording")   
-
+def Swap():
+	temp = leftcombo.get()
+	leftcombo.set(rightcombo.get())
+	rightcombo.set(temp)
 
 def ToggleFull(event):
 	global fullscreen
@@ -276,36 +255,7 @@ def RecordThread():
 	waveFile.writeframes(b''.join(frames))
 	waveFile.close()
 	print("Finished recording")
-	record_finished = True
-
-
-	# while True:
-	# 	while not record:
-	# 		pass
-	# 	audio = pyaudio.PyAudio()
-	# 	stream = audio.open(format=FORMAT, channels=CHANNELS,
-	# 				rate=RATE, input=True,
-	# 				frames_per_buffer=CHUNK)
-		
-	# 	frames = []
-	# 	print("Ready to record...")
-	# 	record_finished = False	
-	# 	while record:
-	# 		# start Recording
-	# 		data = stream.read(CHUNK)
-	# 		frames.append(data)		
-	# 	# stop Recording
-	# 	stream.stop_stream()
-	# 	stream.close()
-	# 	audio.terminate()
-	# 	waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-	# 	waveFile.setnchannels(CHANNELS)
-	# 	waveFile.setsampwidth(audio.get_sample_size(FORMAT))
-	# 	waveFile.setframerate(RATE)
-	# 	waveFile.writeframes(b''.join(frames))
-	# 	waveFile.close()
-	# 	print("finished recording")
-	# 	record_finished = True      
+	record_finished = True 
 
 def play_output_audio():#for non-Pi use
 	dir_path = 	os.getcwd()
@@ -330,62 +280,52 @@ def text2speech_thread_function(translated_text,translated_language_code):
 	print("Output audio played")
 
 
-
 dir_path = 	os.getcwd()
 input_audio_file_path = os.path.join(dir_path,'file.wav')
 #GUI setup 
 root = Tk()
 root.title("JusTalk")
 record_finished = False
-# root.minsize(400,400)
-
-#full screen by default
-#fullscreen = True
-# root.attributes("-fullscreen", True)
+#root.minsize(650,150)
 
 #not fullscreen by default
 fullscreen = False
 root.bind("<Escape>",ToggleFull)
 
+frame = Frame(root)
+frame.pack(side = TOP)
 bottomframe = Frame(root)
 bottomframe.pack(side = BOTTOM)
-exitbutton = Button(bottomframe,text = "Quit",command = quit)
-exitbutton.pack(side = RIGHT, padx=20, pady=20)
+
+# exitbutton = Button(frame,text = "Quit",command = quit)
+# exitbutton.grid(row=3,column=1)
+
 record = False
 buttontext = StringVar()
 record_button_img = PhotoImage(file = "mic.png").subsample(20,20)
-
 buttontext.set("Record")
-recordbutton = Button(bottomframe,image=record_button_img,compound=LEFT,font=("bold"),textvariable = buttontext,command = OnRecord)
-recordbutton.pack(side = RIGHT, padx=20, pady=20)
+recordbutton = Button(bottomframe,image=record_button_img,compound=LEFT,font=("bold"),textvariable=buttontext,command=OnRecord)
+recordbutton.grid(row=0,column=0,pady=20)
 
-leftframe = Frame(root)
-leftframe.pack( side = LEFT)
-leftcombo = ttk.Combobox(leftframe,values = gui_language_list)
-leftcombo.grid(column=0, row=1)
+leftcombo = ttk.Combobox(frame,values=gui_language_list)
 leftcombo.current(0)
-leftcombo.pack(side = TOP)
+leftcombo.grid(column=0,row=0)
 lefttext = StringVar()
 lefttext.set("")
-leftlabel = Label(leftframe,textvariable = lefttext,width = 30,wraplength = 150)
-leftlabel.pack(side = TOP)
+leftlabel = Label(frame,textvariable=lefttext,width=25,wraplength=150)
+leftlabel.grid(column=0,row=1)
 
-rightframe = Frame(root)
-rightframe.pack(side = RIGHT)
-rightcombo = ttk.Combobox(rightframe,values = gui_language_list)
-rightcombo.grid(column=0, row=1)
+swap_button_img = PhotoImage(file="swap.png").subsample(10,9)
+swapbutton = Button(frame,image=swap_button_img,text="",command=Swap)
+swapbutton.grid(column=1,row=0,padx=10,pady=40)
+
+rightcombo = ttk.Combobox(frame,values=gui_language_list)
 rightcombo.current(0)
-rightcombo.pack(side = TOP)
+rightcombo.grid(column=2,row=0)
 righttext = StringVar()
 righttext.set("")
-rightlabel = Label(rightframe,textvariable = righttext ,width = 30,wraplength = 150)
-rightlabel.pack(side = TOP)
-
-# recordthread = threading.Thread(target = RecordThread)
-# recordthread.daemon = True
-
-# audiothread = threading.Thread(target = play_output_audio)
-# audiothread.daemon = True
+rightlabel = Label(frame,textvariable=righttext,width=25,wraplength=150)
+rightlabel.grid(column=2, row=1)
 
 root.mainloop()
 
