@@ -297,49 +297,46 @@ input_audio_file_path = os.path.join(dir_path,'file.wav')
 root = Tk()
 root.title("JusTalk")
 record_finished = False
-# root.minsize(400,400)
-
-#full screen by default
-#fullscreen = True
-# root.attributes("-fullscreen", True)
+root.minsize(650,150)
 
 #not fullscreen by default
 fullscreen = False
 root.bind("<Escape>",ToggleFull)
 
+frame = Frame(root)
+frame.pack(side = TOP)
 bottomframe = Frame(root)
 bottomframe.pack(side = BOTTOM)
-exitbutton = Button(bottomframe,text = "Quit",command = quit)
-exitbutton.pack(side = RIGHT, padx=20, pady=20)
+
+# exitbutton = Button(frame,text = "Quit",command = quit)
+# exitbutton.grid(row=3,column=1)
+
 record = False
 buttontext = StringVar()
 record_button_img = PhotoImage(file = "mic.png").subsample(20,20)
-
 buttontext.set("Record")
-recordbutton = Button(bottomframe,image=record_button_img,compound=LEFT,font=("bold"),textvariable = buttontext,command = OnRecord)
-recordbutton.pack(side = RIGHT, padx=20, pady=20)
+recordbutton = Button(frame,image=record_button_img,compound=LEFT,font=("bold"),textvariable=buttontext,command=OnRecord)
+recordbutton.grid(row=2,column=1,pady=10)
 
-leftframe = Frame(root)
-leftframe.pack( side = LEFT)
-leftcombo = ttk.Combobox(leftframe,values = gui_language_list)
-leftcombo.grid(column=0, row=1)
+leftcombo = ttk.Combobox(frame,values=gui_language_list)
 leftcombo.current(0)
-leftcombo.pack(side = TOP)
+leftcombo.grid(column=0,row=0,pady=10,padx=10)
 lefttext = StringVar()
 lefttext.set("")
-leftlabel = Label(leftframe,textvariable = lefttext,width = 30,wraplength = 150)
-leftlabel.pack(side = TOP)
+leftlabel = Label(frame,textvariable=lefttext,width=30,wraplength=150)
+leftlabel.grid(column=0,row=1)
 
-rightframe = Frame(root)
-rightframe.pack(side = RIGHT)
-rightcombo = ttk.Combobox(rightframe,values = gui_language_list)
-rightcombo.grid(column=0, row=1)
+swap_button_img = PhotoImage(file="swap.png").subsample(10,9)
+swapbutton = Button(frame,image=swap_button_img,text="")
+swapbutton.grid(column=1,row=0,pady=10)
+
+rightcombo = ttk.Combobox(frame,values=gui_language_list)
 rightcombo.current(0)
-rightcombo.pack(side = TOP)
+rightcombo.grid(column=2,row=0,pady=10,padx=10)
 righttext = StringVar()
 righttext.set("")
-rightlabel = Label(rightframe,textvariable = righttext ,width = 30,wraplength = 150)
-rightlabel.pack(side = TOP)
+rightlabel = Label(frame,textvariable=righttext,width=30,wraplength=150)
+rightlabel.grid(column=2, row=1)
 
 root.mainloop()
 """
