@@ -288,8 +288,9 @@ root.title("JusTalk")
 record_finished = False
 #root.minsize(650,150)
 
-#not fullscreen by default
-fullscreen = False
+#fullscreen by default
+fullscreen = True
+root.attributes("-fullscreen", True)
 root.bind("<Escape>",ToggleFull)
 
 frame = Frame(root)
