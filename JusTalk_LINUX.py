@@ -221,6 +221,11 @@ def OnRecord():
 		recordthread.daemon = True
 		recordthread.start()
 
+def Swap():
+	temp = leftcombo.get()
+	leftcombo.set(rightcombo.get())
+	rightcombo.set(temp)
+
 def ToggleFull(event):
 	global fullscreen
 	fullscreen = not fullscreen
@@ -310,6 +315,8 @@ bottomframe.pack(side = BOTTOM)
 
 # exitbutton = Button(frame,text = "Quit",command = quit)
 # exitbutton.grid(row=3,column=1)
+in_language = 0
+out_language = 0
 
 record = False
 buttontext = StringVar()
@@ -327,7 +334,7 @@ leftlabel = Label(frame,textvariable=lefttext,width=30,wraplength=150)
 leftlabel.grid(column=0,row=1)
 
 swap_button_img = PhotoImage(file="swap.png").subsample(10,9)
-swapbutton = Button(frame,image=swap_button_img,text="")
+swapbutton = Button(frame,image=swap_button_img,text="",command=Swap)
 swapbutton.grid(column=1,row=0,pady=10)
 
 rightcombo = ttk.Combobox(frame,values=gui_language_list)
